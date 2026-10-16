@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:keepScreenOn="true">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/status_off"
+            android:textColor="@color/primary"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium" />
+
+        <Button
+            android:id="@+id/btnCalibrate"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/calibrate"
+            android:textSize="11sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <Button
+            android:id="@+id/btnPair"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/pair"
+            android:textSize="11sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <Button
+            android:id="@+id/btnPc"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/choose_pc"
+            android:textSize="11sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <Button
+            android:id="@+id/btnDiag"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/diagnose"
+            android:textSize="11sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/settings"
+            android:textSize="11sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton" />
+    </LinearLayout>
+
+    <!-- Shift paddles -->
+    <TextView
+        android:id="@+id/btnShiftDown"
+        android:layout_width="64dp"
+        android:layout_height="96dp"
+        android:gravity="center"
+        android:text="@string/shift_down"
+        android:textSize="28sp"
+        android:textColor="@color/text"
+        android:background="@color/button"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp" />
+
+    <TextView
+        android:id="@+id/btnShiftUp"
+        android:layout_width="64dp"
+        android:layout_height="96dp"
+        android:gravity="center"
+        android:text="@string/shift_up"
+        android:textSize="28sp"
+        android:textColor="@color/text"
+        android:background="@color/button"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="6dp" />
+
+    <!-- Center panel: telemetry + diagnostic -->
+    <ScrollView
+        android:id="@+id/centerScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/surface"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/btnRow"
+        app:layout_constraintStart_toEndOf="@id/btnShiftDown"
+        app:layout_constraintEnd_toStartOf="@id/btnShiftUp"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="4dp">
+
+        <LinearLayout
+            android:id="@+id/telemPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="10dp">
+
+            <!-- Live values sent to PC -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ENVIADO AO PC"
+                android:textSize="10sp"
+                android:textColor="@color/text_dim"
+                android:letterSpacing="0.08" />
+
+            <TextView
+                android:id="@+id/txtSteerOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DIR 0.000"
+                android:textSize="22sp"
+                android:textColor="@color/primary"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginTop="2dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/txtThrOut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="ACC 0%"
+                    android:textSize="14sp"
+                    android:textColor="@color/throttle" />
+
+                <TextView
+                    android:id="@+id/txtBrkOut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TRV 0%"
+                    android:textSize="14sp"
+                    android:textColor="@color/brake" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/steerBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:max="200"
+                android:progress="100"
+                android:progressTint="@color/primary"
+                android:layout_marginTop="6dp" />
+
+            <!-- Editable simulated telemetry (local only — no game feed in V0.3) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TELEMETRIA (editável · local)"
+                android:textSize="10sp"
+                android:textColor="@color/text_dim"
+                android:letterSpacing="0.06"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="km/h"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    android:layout_marginEnd="6dp" />
+
+                <EditText
+                    android:id="@+id/editSpeed"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textColor="@color/text"
+                    android:gravity="center"
+                    android:background="@color/button"
+                    android:padding="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  Marcha"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="6dp" />
+
+                <EditText
+                    android:id="@+id/editGear"
+                    android:layout_width="48dp"
+                    android:layout_height="36dp"
+                    android:inputType="numberSigned"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary"
+                    android:gravity="center"
+                    android:background="@color/button"
+                    android:padding="4dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RPM"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    android:layout_marginEnd="6dp" />
+
+                <EditText
+                    android:id="@+id/editRpm"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    android:gravity="center"
+                    android:background="@color/button"
+                    android:padding="4dp" />
+
+                <ProgressBar
+                    android:id="@+id/rpmBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_weight="1.2"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="@color/rpm_bar"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Diagnostic / settings (toggle) -->
+            <LinearLayout
+                android:id="@+id/diagPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txtDiag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PARÂMETROS (editáveis)"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_dim"
+                    android:layout_marginTop="8dp" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="4dp">
+                    <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                        android:text="@string/max_angle" android:textSize="11sp" android:textColor="@color/text_dim"/>
+                    <SeekBar android:id="@+id/seekMaxAngle" android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:max="90" android:progress="45"/>
+                    <TextView android:id="@+id/valMaxAngle" android:layout_width="36dp" android:layout_height="wrap_content"
+                        android:text="45" android:textSize="12sp" android:textColor="@color/text" android:gravity="end"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                        android:text="@string/filter" android:textSize="11sp" android:textColor="@color/text_dim"/>
+                    <SeekBar android:id="@+id/seekFilter" android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:max="50" android:progress="18"/>
+                    <TextView android:id="@+id/valFilter" android:layout_width="36dp" android:layout_height="wrap_content"
+                        android:text="0.18" android:textSize="12sp" android:textColor="@color/text" android:gravity="end"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                        android:text="@string/deadzone" android:textSize="11sp" android:textColor="@color/text_dim"/>
+                    <SeekBar android:id="@+id/seekDeadzone" android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:max="30" android:progress="4"/>
+                    <TextView android:id="@+id/valDeadzone" android:layout_width="36dp" android:layout_height="wrap_content"
+                        android:text="0.04" android:textSize="12sp" android:textColor="@color/text" android:gravity="end"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                        android:text="@string/curve" android:textSize="11sp" android:textColor="@color/text_dim"/>
+                    <SeekBar android:id="@+id/seekCurve" android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:max="30" android:progress="13"/>
+                    <TextView android:id="@+id/valCurve" android:layout_width="36dp" android:layout_height="wrap_content"
+                        android:text="1.3" android:textSize="12sp" android:textColor="@color/text" android:gravity="end"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="90dp" android:layout_height="wrap_content"
+                        android:text="@string/send_hz" android:textSize="11sp" android:textColor="@color/text_dim"/>
+                    <SeekBar android:id="@+id/seekHz" android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1" android:max="100" android:progress="50"/>
+                    <TextView android:id="@+id/valHz" android:layout_width="36dp" android:layout_height="wrap_content"
+                        android:text="50" android:textSize="12sp" android:textColor="@color/text" android:gravity="end"/>
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/chkInvert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/invert"
+                    android:textColor="@color/text"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Center buttons -->
+    <LinearLayout
+        android:id="@+id/btnRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/pedalRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="4dp">
+
+        <TextView android:id="@+id/btnDrs" android:layout_width="68dp" android:layout_height="40dp"
+            android:gravity="center" android:text="@string/drs" android:textSize="12sp"
+            android:textColor="@color/text" android:background="@color/button" android:layout_marginEnd="6dp"/>
+        <TextView android:id="@+id/btnErs" android:layout_width="68dp" android:layout_height="40dp"
+            android:gravity="center" android:text="@string/ers" android:textSize="12sp"
+            android:textColor="@color/text" android:background="@color/button" android:layout_marginEnd="6dp"/>
+        <TextView android:id="@+id/btnPause" android:layout_width="68dp" android:layout_height="40dp"
+            android:gravity="center" android:text="@string/pause" android:textSize="12sp"
+            android:textColor="@color/text" android:background="@color/button"/>
+    </LinearLayout>
+
+    <!-- Pedals -->
+    <LinearLayout
+        android:id="@+id/pedalRow"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/btnBrake"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/brake"
+            android:textSize="15sp"
+            android:textColor="@color/text"
+            android:background="@color/brake"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginEnd="5dp" />
+
+        <TextView
+            android:id="@+id/btnThrottle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/throttle"
+            android:textSize="15sp"
+            android:textColor="@color/bg"
+            android:background="@color/throttle"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

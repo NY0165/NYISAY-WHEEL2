@@ -1,0 +1,66 @@
+NYISAY V0.3 — Compilar SEM Android Studio
+==========================================
+
+Compilação na nuvem (GitHub Actions)
+------------------------------------
+1) Envia esta pasta para o repositório GitHub.
+2) Abre Actions > Android Build V0.3 > Run workflow.
+3) Aguarda o job "build" terminar com sucesso.
+4) Descarrega o artefacto "nyisay-virtual-racing-wheel-v0.3-debug-apk".
+
+O workflow instala Android platform 34 e Build Tools 34.0.0 e só publica
+um artefacto se o APK existir. A primeira execução precisa de Internet para
+obter o Gradle e as dependências.
+
+
+Requisitos no PC:
+  - JDK 17  (recomendado; evita JDK 21 se der erro)
+  - Android SDK (platforms;android-34 + build-tools;34.0.0)
+  - Variáveis: JAVA_HOME, ANDROID_HOME
+
+--------------------------------------------------
+1) Cache DENTRO do projecto (importante se a net falhar)
+--------------------------------------------------
+Linux / macOS:
+  cd android-app
+  export GRADLE_USER_HOME="$(pwd)/.gradle-cache"
+  chmod +x gradlew
+  ./gradlew assembleDebug --no-daemon
+
+Windows (PowerShell):
+  cd android-app
+  $env:GRADLE_USER_HOME = "$PWD\.gradle-cache"
+  .\gradlew.bat assembleDebug --no-daemon
+
+Na PRIMEIRA vez o Gradle descarrega o motor (gradle-8.2) e as
+dependências para a pasta .gradle-cache/.
+
+Se a net cair a meio:
+  - NÃO apagues .gradle-cache
+  - Volta a correr o mesmo comando
+  - O que já descarregou fica; só falta o resto
+
+--------------------------------------------------
+2) Depois do primeiro sucesso — modo offline
+--------------------------------------------------
+  ./gradlew assembleDebug --offline --no-daemon
+
+Assim não gasta dados. Só usa o que está em .gradle-cache.
+
+--------------------------------------------------
+3) APK
+--------------------------------------------------
+  app/build/outputs/apk/debug/app-debug.apk
+
+Instalar no telemóvel (USB):
+  adb install -r app/build/outputs/apk/debug/app-debug.apk
+
+--------------------------------------------------
+4) O que NÃO apagar se a net for instável
+--------------------------------------------------
+  gradlew / gradlew.bat
+  gradle/wrapper/          (já vem no ZIP)
+  .gradle-cache/           (criado na 1ª compilação — guarda isto!)
+
+Podes copiar a pasta android-app inteira (com .gradle-cache) para
+outro PC ou USB e compilar com --offline sem voltar a descarregar.

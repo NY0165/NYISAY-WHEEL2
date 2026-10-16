@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#0A0C0B</color>
+    <color name="surface">#141816</color>
+    <color name="primary">#D6FF3F</color>
+    <color name="brake">#FF4D3A</color>
+    <color name="throttle">#3AFF7A</color>
+    <color name="text">#E8ECE6</color>
+    <color name="text_dim">#8A9288</color>
+    <color name="rpm_bar">#D6FF3F</color>
+    <color name="button">#1E2420</color>
+    <color name="button_active">#3A453C</color>
+</resources>

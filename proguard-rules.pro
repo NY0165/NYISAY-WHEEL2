@@ -1,0 +1,1 @@
+-keep class mz.nyisay.virtualracingwheel.** { *; }
